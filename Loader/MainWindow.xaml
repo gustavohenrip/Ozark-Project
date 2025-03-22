@@ -1,0 +1,227 @@
+﻿<Window x:Class="Loader.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Loader"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="1000"
+        WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Grid x:Name="Grid">
+                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="Transparent" />
+                            <Border x:Name="Rectangle1" CornerRadius="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="14" Height="Auto"  Background="{TemplateBinding Background}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <Setter TargetName="Rectangle1" Property="Width" Value="5" />
+                                <Setter TargetName="Rectangle1" Property="Height" Value="7" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--ScrollBars-->
+        <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+            <Setter Property="Foreground" Value="#FF252729" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="5" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid x:Name="GridRoot" Width="19" Background="{TemplateBinding Background}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.00001*" />
+                            </Grid.RowDefinitions>
+
+                            <Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="true" Focusable="false">
+                                <Track.Thumb>
+                                    <Thumb x:Name="Thumb" Background="{TemplateBinding Foreground}" Style="{DynamicResource ScrollThumbs}" />
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="false" />
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="false" />
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
+                                <Setter Value="{DynamicResource ButtonSelectBrush}" TargetName="Thumb" Property="Background" />
+                            </Trigger>
+                            <Trigger SourceName="Thumb" Property="IsDragging" Value="true">
+                                <Setter Value="{DynamicResource DarkBrush}" TargetName="Thumb" Property="Background" />
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Thumb" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="5" />
+                                <Setter Property="Height" Value="12" />
+                                <Setter TargetName="Thumb" Property="Tag" Value="Horizontal" />
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CustomButton" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border" BorderThickness="0" BorderBrush="Transparent" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.8" />
+                                <Setter Property="BorderBrush"  TargetName="Border" Value="#fff" />
+                                <Setter Property="BorderThickness" TargetName="Border" Value="0.5" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="LoginButton" TargetType="Button">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" BorderBrush="#a3a3a3" BorderThickness="0.6" Background="#1c1c1f">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.7"/>
+                                <Setter Property="BorderBrush" Value="#36363d"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="#121212" Margin="0,0,0,0">
+        <Image Source="Assets/Poly.jpg" OpacityMask="White" Opacity="0.5" Stretch="Fill" />
+
+        <Rectangle x:Name="FooterRectangle" Height="30" VerticalAlignment="Bottom" MouseDown="BannerRectangle_MouseDown">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#FF0d0d0d" />
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Label x:Name="URLLabel" Content="ozark.gg" Foreground="#DDDDDD" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5,0,0,2" MouseDown="URLLabel_MouseDown" />
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="20,20,520,50" Height="650">
+            <StackPanel VerticalAlignment="Top" x:Name="CheatPanel" />
+        </ScrollViewer>
+
+        <Grid Margin="520,0,0,30" Height="690">
+            <Rectangle Margin="0,0,0,0">
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="#131313" />
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <!-- Users name -->
+            <Label Content="Test Account" Foreground="#DDDDDD" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Franklin Gothic Medium"
+                   FontSize="18" Margin="0,10,0,0" x:Name="UsernameLabel" />
+
+            <!-- Empty box where the image will be, to show while the image is loading -->
+            <Rectangle Margin="20,50,20,0" VerticalAlignment="Top" Height="200">
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="White" />
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <!-- The image, placeholder for testing -->
+            <Image x:Name="SelectedCheatImage" Source="Assets/MyLord.jpg" Margin="20,50,20,0" VerticalAlignment="Top" Height="200" Stretch="Fill" />
+
+            <!-- The text and such -->
+            <Label x:Name="GameLabel" Content="Game:" Foreground="#DDDDDD" Margin="20,300,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Franklin Gothic Book"
+                   FontSize="17" />
+
+            <Label x:Name="SubscriptionLabel" Content="Subscription:" Foreground="#DDDDDD" Margin="20,335,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Franklin Gothic Book"
+                   FontSize="17" />
+
+            <Label x:Name="CheatStatusLabel" Content="Cheat Status:" Foreground="#DDDDDD" Margin="20,370,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Franklin Gothic Book"
+                   FontSize="17" />
+
+            <Label x:Name="GameStatusLabel" Content="Game Status:" Foreground="#DDDDDD" Margin="20,405,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Franklin Gothic Book"
+                   FontSize="17" />
+
+            <Label x:Name="VersionLabel" Content="Version:" Foreground="#DDDDDD" Margin="20,440,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Franklin Gothic Book"
+                   FontSize="17" />
+
+            <!-- The value labels for the above -->
+            <Label x:Name="SelectedCheatGameName" Content="Grand Theft Auto V" Foreground="#DDDDDD" Margin="77,300,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Franklin Gothic Medium"
+                   FontSize="17" />
+
+            <Label x:Name="SelectedCheatSubscription" Content="Lifetime" Foreground="#0e9414" Margin="124,335,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Franklin Gothic Medium"
+                   FontSize="17" />
+
+            <Label x:Name="SelectedCheatStatus" Content="Online" Foreground="#0e9414" Margin="127,370,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Franklin Gothic Medium"
+                   FontSize="17" />
+
+            <Label x:Name="SelectedCheatGameStatus" Content="Offline" Foreground="#940e0e" Margin="127,405,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Franklin Gothic Medium"
+                   FontSize="17" />
+
+            <Label x:Name="SelectedCheatVersion" Content="V1.22" Foreground="#DDDDDD" Margin="88,440,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Franklin Gothic Medium"
+                   FontSize="17" />
+
+            <!-- The buttons -->
+            <Button x:Name="ViewChangelogButton" Content="View Changelog" Height="50" BorderThickness="0" Background="#c82828" VerticalAlignment="Top"
+                    FontSize="15" FontFamily="Franklin Gothic Medium" Foreground="#DDD" Style="{StaticResource LoginButton}" Margin="30,550,245,0"
+                    Click="ViewChangelogButton_Click" />
+
+            <Button x:Name="ViewResourcesButton" Content="View Resources" Height="50" BorderThickness="0" Background="#c82828" VerticalAlignment="Top"
+                    FontSize="15" FontFamily="Franklin Gothic Medium" Foreground="#DDD" Style="{StaticResource LoginButton}" Margin="245,550,30,0"
+                    Click="ViewResourcesButton_Click" />
+
+            <Button x:Name="LoadCheatButton" Content="Load Cheat" Height="50" BorderThickness="0" Background="#c82828" VerticalAlignment="Top"
+                    FontSize="15" FontFamily="Franklin Gothic Medium" Foreground="#DDD" Style="{StaticResource LoginButton}" Margin="30,610,30,0"
+                    Click="LoadCheatButton_Click" />
+        </Grid>
+
+        <Rectangle x:Name="BannerRectangle" Height="30" VerticalAlignment="Top" MouseDown="BannerRectangle_MouseDown">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="Transparent" />
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Image x:Name="CloseButtonImage" Source="Assets/CloseButton.png" Height="11" Margin="0,9.4,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
+               MouseDown="CloseButtonImage_MouseDown" MouseEnter="HeaderImage_MouseEnter" MouseLeave="HeaderImage_MouseLeave" />
+       
+        <Image x:Name="MinimizeButtonImage" Source="Assets/MinimizeButton.png" Height="11" Margin="0,9.4,33,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
+               MouseDown="MinimizeButtonImage_MouseDown" MouseEnter="HeaderImage_MouseEnter" MouseLeave="HeaderImage_MouseLeave" />
+    </Grid>
+</Window>

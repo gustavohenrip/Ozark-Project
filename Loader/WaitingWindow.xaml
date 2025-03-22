@@ -1,0 +1,33 @@
+﻿<Window x:Class="Loader.WaitingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Loader"
+        mc:Ignorable="d"
+        Title="WaitingWindow" Height="100" Width="450"
+        WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="WaitingWindow_Loaded">
+    <Grid Background="#121212" Margin="0,0,0,0">
+        <Label x:Name="WaitingLabel" Content="Waiting for X..." Foreground="#dedede" VerticalAlignment="Center" Margin="10,23,10,37" FontSize="20" Height="40"/>
+
+        <Rectangle x:Name="FooterRectangle" Height="30" VerticalAlignment="Bottom" MouseDown="BannerRectangle_MouseDown">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#FF0d0d0d" />
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Label x:Name="URLLabel" Content="ozark.gg" Foreground="#DDDDDD" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5,0,0,2" MouseDown="URLLabel_MouseDown" />
+
+        <Rectangle x:Name="BannerRectangle" Height="30" VerticalAlignment="Top" MouseDown="BannerRectangle_MouseDown">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="Transparent" />
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Image x:Name="CloseButtonImage" Source="Assets/CloseButton.png" Height="11" Margin="0,9.4,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
+               MouseDown="CloseButtonImage_MouseDown" MouseEnter="HeaderImage_MouseEnter" MouseLeave="HeaderImage_MouseLeave" />
+
+        <Image x:Name="MinimizeButtonImage" Source="Assets/MinimizeButton.png" Height="11" Margin="0,9.4,33,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
+               MouseDown="MinimizeButtonImage_MouseDown" MouseEnter="HeaderImage_MouseEnter" MouseLeave="HeaderImage_MouseLeave" />
+    </Grid>
+</Window>

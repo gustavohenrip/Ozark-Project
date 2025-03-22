@@ -1,0 +1,107 @@
+﻿<Window x:Class="Loader.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Loader"
+        mc:Ignorable="d"
+        Title="LoginWindow" Height="400" Width="350"
+        WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="#a3a3a3" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style> 
+
+        <Style TargetType="PasswordBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="#a3a3a3" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="LoginButton" TargetType="Button">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" BorderBrush="#a3a3a3" BorderThickness="0.6" Background="#1c1c1f">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.7"/>
+                                <Setter Property="BorderBrush" Value="#36363d"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="#131313" Margin="0,0,0,0">
+        <Rectangle x:Name="BannerRectangle" Height="30" VerticalAlignment="Top" MouseDown="BannerRectangle_MouseDown">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="#131313" />
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Image x:Name="CloseButtonImage" Source="Assets/CloseButton.png" Height="11" Margin="0,9.4,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" MouseDown="CloseButtonImage_MouseDown" MouseEnter="CloseButtonImage_MouseEnter" MouseLeave="CloseButtonImage_MouseLeave" />
+        <Image x:Name="MinimizeButtonImage" Source="Assets/MinimizeButton.png" Height="11" Margin="0,9.4,33,0" VerticalAlignment="Top" HorizontalAlignment="Right" MouseDown="MinimizeButtonImage_MouseDown" MouseEnter="MinimizeButtonImage_MouseEnter" MouseLeave="MinimizeButtonImage_MouseLeave" />
+
+        <Image Source="Assets/Logo.png" Height="150" Margin="0,48,0,0" VerticalAlignment="Top" />
+
+        <TextBox x:Name="UsernameTextBox" Height="30" VerticalAlignment="Top" Margin="65,214,65,0"
+                 VerticalContentAlignment="Center" Background="#121212" BorderBrush="#a3a3a3" BorderThickness="0,0,0,1"
+                 Padding="2,-1,5,0" FontSize="15" Foreground="LightGray" FontFamily="Tahoma" GotFocus="UsernameTextBox_GotFocus" LostFocus="UsernameTextBox_LostFocus"/>
+
+        <TextBox x:Name="UsernamePlaceholderTextBox" Height="30" VerticalAlignment="Top" Margin="65,214,65,0"
+                 VerticalContentAlignment="Center" Background="#121212" BorderBrush="#a3a3a3" BorderThickness="0,0,0,1"
+                 Padding="2,0,0,0" FontSize="11" Foreground="#8c8c8c" FontStyle="Italic" Focusable="False"
+                 IsHitTestVisible="False" Text="Enter your username..."/>
+
+        <PasswordBox x:Name="PasswordTextBox" Height="30" VerticalAlignment="Top" Margin="65,259,65,0"
+                 VerticalContentAlignment="Center" Background="#121212" BorderBrush="#a3a3a3" BorderThickness="0,0,0,1"
+                 Padding="2,-1,5,0" FontSize="15" Foreground="LightGray" FontFamily="Tahoma" GotFocus="PasswordTextBox_GotFocus" LostFocus="PasswordTextBox_LostFocus" />
+
+        <TextBox x:Name="PasswordPlaceholderTextBox" Height="30" VerticalAlignment="Top" Margin="65,259,65,0"
+                 VerticalContentAlignment="Center" Background="#121212" BorderBrush="#a3a3a3" BorderThickness="0,0,0,1"
+                 Padding="2,0,0,0" FontSize="11" Foreground="#8c8c8c" FontStyle="Italic" Focusable="False"
+                 IsHitTestVisible="False" Text="Enter your password..."/>
+
+        <Button x:Name="ForgotPasswordButton" Height="32" Margin="65,322,180,0" VerticalAlignment="Top" FontSize="13"
+                FontFamily="Tahoma" Foreground="#a3a3a3" Style="{StaticResource LoginButton}" Content="Forgot" Click="ForgotPasswordButton_Click" />
+
+        <Button x:Name="LoginButton" Height="32" Margin="180,322,65,0" VerticalAlignment="Top" FontSize="13"
+                FontFamily="Tahoma" Foreground="#a3a3a3" Style="{StaticResource LoginButton}" Content="Login" Click="LoginButton_Click" />
+
+        <Image x:Name="USALanguageImage" Source="Assets/USAFlag.png" Width="21" Height="14" VerticalAlignment="Top" Margin="299,381,30,0" Stretch="UniformToFill" MouseDown="USALanguageImage_MouseDown" MouseEnter="USALanguageImage_MouseEnter" MouseLeave="USALanguageImage_MouseLeave" />
+        <Image x:Name="ChinaLanguageImage" Source="Assets/ChinaFlag.png" Height="14" VerticalAlignment="Top" Margin="324,381,5,0" Stretch="UniformToFill" Opacity="0.1" MouseDown="ChinaLanguageImage_MouseDown" MouseEnter="ChinaLanguageImage_MouseEnter" MouseLeave="ChinaLanguageImage_MouseLeave" />
+    </Grid>
+</Window>
